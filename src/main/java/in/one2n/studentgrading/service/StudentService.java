@@ -3,19 +3,16 @@ package in.one2n.studentgrading.service;
 import java.util.List;
 
 import in.one2n.studentgrading.entity.Student;
-import in.one2n.studentgrading.repository.StudentRepository;
-import jakarta.inject.Singleton;
 
-@Singleton
-public class StudentService {
+public interface StudentService {
 
-  private final StudentRepository studentRepository;
+  List<Student> getAllStudents();
 
-  public StudentService(StudentRepository studentRepository) {
-    this.studentRepository = studentRepository;
-  }
+  Student getStudentById(Long id);
 
-  public List<Student> getAllStudents() {
-    return studentRepository.findAll();
-  }
+  Student addStudent(Student student);
+
+  Student updateStudent(Student student);
+
+  void deleteById(Long id);
 }
