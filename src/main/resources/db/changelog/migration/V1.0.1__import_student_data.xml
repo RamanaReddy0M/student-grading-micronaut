@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <property name="now" value="now()" dbms="postgresql"/>
+    <changeSet author="liquibase-docs" id="student-metadata">
+        <loadData catalogName="cat"
+                  commentLineStartsWith="//"
+                  encoding="UTF-8"
+                  file="../../CSV/grades.csv"
+                  quotchar="'"
+                  relativeToChangelogFile="true"
+                  schemaName="public"
+                  separator=","
+                  tableName="students"
+                  usePreparedStatements="true">
+            <column header="FirstName"
+                    name="first_name"
+                    type="STRING"/>
+            <column header="LastName"
+                    name="last_name"
+                    type="STRING"/>
+            <column header="University"
+                    name="university"
+                    type="STRING"/>
+            <column header="Test1"
+                    name="test1_score"
+                    type="NUMERIC"/>
+            <column header="Test2"
+                    name="test2_score"
+                    type="NUMERIC"/>
+            <column header="Test3"
+                    name="test3_score"
+                    type="NUMERIC"/>
+            <column header="Test4"
+                    name="test4_score"
+                    type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
