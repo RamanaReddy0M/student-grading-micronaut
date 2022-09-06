@@ -51,7 +51,7 @@ public class StudentController {
   }
 
   @Get("/topper")
-  public List<Student> getOverallTopper(){
-    return studentService.getOverallTopper();
+  public HttpResponse<List<Student>> getOverallTopper(){
+    return HttpResponse.ok(studentService.getOverallTopper());
   }
 }

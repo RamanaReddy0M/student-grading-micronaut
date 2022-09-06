@@ -41,8 +41,20 @@ public class Student {
 
   private Double test4Score;
 
+  @Transient
   private Double finalScore;
 
   @Transient
   private Grade grade;
+
+  public Student(String firstName, String lastName, String university, Double test1Score,
+      Double test2Score, Double test3Score, Double test4Score) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.university = university;
+    this.test1Score = test1Score;
+    this.test2Score = test2Score;
+    this.test3Score = test3Score;
+    this.test4Score = test4Score;
+  }
 }
