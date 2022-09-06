@@ -3,7 +3,7 @@ package in.one2n.studentgrading.controller;
 import java.util.List;
 
 import in.one2n.studentgrading.entity.Student;
-import in.one2n.studentgrading.service.impl.StudentServiceImpl;
+import in.one2n.studentgrading.service.StudentService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Body;
@@ -17,35 +17,45 @@ import io.micronaut.http.annotation.QueryValue;
 @Controller("/v1/api/student")
 public class StudentController {
 
-  public final StudentServiceImpl studentServiceImpl;
+  public final StudentService studentService;
 
-  public StudentController(StudentServiceImpl studentServiceImpl) {
-    this.studentServiceImpl = studentServiceImpl;
+  public StudentController(StudentService studentService) {
+    this.studentService = studentService;
   }
 
   @Get
   public HttpResponse<Student> getStudentById(@QueryValue Long id) {
-    return HttpResponse.ok(studentServiceImpl.getStudentById(id));
+    return HttpResponse.ok(studentService.getStudentById(id));
   }
 
   @Post("/create")
   public HttpResponse<Student> addStudent(@Body Student student) {
-    return HttpResponse.ok(studentServiceImpl.addStudent(student));
+    return HttpResponse.ok(studentService.addStudent(student));
   }
 
   @Put("/update")
   public HttpResponse<Student> updateStudent(@Body Student student) {
-    return HttpResponse.ok(studentServiceImpl.updateStudent(student));
+    return HttpResponse.ok(studentService.updateStudent(student));
   }
 
   @Get("/all")
   public HttpResponse<List<Student>> getAllStudents() {
-    return HttpResponse.ok(studentServiceImpl.getAllStudents());
+    return HttpResponse.ok(studentService.getAllStudents());
   }
 
   @Delete
   public HttpStatus deleteById(@QueryValue Long id) {
-    studentServiceImpl.deleteById(id);
+    studentService.deleteById(id);
     return HttpStatus.NO_CONTENT;
+  }
+
+  @Get("/topper")
+  public HttpResponse<List<Student>> getOverallTopper(){
+    return HttpResponse.ok(studentService.getOverallTopper());
+  }
+
+  @Get("/university-wise-topper")
+  public HttpResponse<List<Student>> getUniversityTopper(){
+    return HttpResponse.ok(studentService.getUniversityWiseTopper());
   }
 }

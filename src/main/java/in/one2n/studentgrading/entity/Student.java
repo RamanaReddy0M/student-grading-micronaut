@@ -20,6 +20,7 @@ import lombok.ToString;
 @Table(name = "students")
 @Introspected
 public class Student {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
@@ -44,4 +45,22 @@ public class Student {
 
   @Transient
   private Grade grade;
+
+  public Double getFinalScore() {
+    return (test1Score + test2Score + test3Score + test4Score);
+  }
+
+  public Grade getGrade() {
+    double finalScore = getFinalScore() / 4;
+    if (finalScore < 35) {
+      grade = Grade.F;
+    } else if (finalScore >= 35 && finalScore < 50) {
+      grade = Grade.C;
+    } else if (finalScore >= 50 && finalScore < 70) {
+      grade = Grade.B;
+    } else {
+      grade = Grade.A;
+    }
+    return grade;
+  }
 }
