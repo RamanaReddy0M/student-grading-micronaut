@@ -139,6 +139,23 @@ class StudentControllerTest {
   @Test
   @Order(5)
   void updateStudent() {
+    //when:
+    String requestBody =
+        "{" + "\"firstName\": \"Roger\",\n" +
+            "\"lastName\": \"Lothruk\",\n" +
+            "\"university\": \"RCOEM\",\n" +
+            "\"test1Score\": 99.0,\n" +
+            "\"test2Score\": 99.0,\n" +
+            "\"test3Score\": 99.0,\n" +
+            "\"test4Score\": 90.0 }";
+
+    HttpRequest<Object> request = HttpRequest.PUT("/v1/api/student/update", requestBody);
+    HttpResponse<Student> response = httpClient.toBlocking().exchange(request, Student.class);
+
+    //then:
+    assertNotNull(response);
+    assertEquals("Roger", response.body().getFirstName());
+    assertEquals("RCOEM", response.body().getUniversity());
   }
 
   @Test
@@ -171,5 +188,9 @@ class StudentControllerTest {
   @Test
   @Order(7)
   void deleteById() {
+    HttpResponse<Student> response = httpClient.toBlocking()
+        .exchange(HttpRequest.DELETE("/v1/api/student/?id=1"), Student.class);
+
+    assertEquals(HttpStatus.NO_CONTENT, response.getStatus());
   }
 }
