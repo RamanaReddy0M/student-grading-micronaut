@@ -2,7 +2,9 @@ package in.one2n.studentgrading.service.impl;
 
 import java.util.List;
 
+import in.one2n.studentgrading.constants.ErrorMessage;
 import in.one2n.studentgrading.entity.Student;
+import in.one2n.studentgrading.exception.UserNotFoundException;
 import in.one2n.studentgrading.repository.StudentRepository;
 import in.one2n.studentgrading.service.StudentService;
 import jakarta.inject.Singleton;
@@ -28,7 +30,8 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   public Student getStudentById(Long id) {
-    return studentRepository.findById(id).isPresent() ? studentRepository.findById(id).get() : null;
+    return studentRepository.findById(id)
+        .orElseThrow(() -> new UserNotFoundException(ErrorMessage.USER_NOT_FOUND));
   }
 
   @Override
