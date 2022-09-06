@@ -49,4 +49,14 @@ public class StudentServiceImpl implements StudentService {
   public Student updateStudent(Student student) {
     return studentRepository.update(student);
   }
+
+  @Override
+  public List<Student> getOverallTopper() {
+    return studentRepository.findOverallTopper();
+  }
+
+  @Override
+  public List<Student> getUniversityWiseTopper() {
+    return studentRepository.findUniversityWiseTopper();
+  }
 }
