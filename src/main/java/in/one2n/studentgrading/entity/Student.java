@@ -10,6 +10,7 @@ import javax.persistence.Transient;
 
 import io.micronaut.core.annotation.Introspected;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -19,6 +20,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "students")
 @Introspected
+@NoArgsConstructor
 public class Student {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +41,6 @@ public class Student {
 
   private Double test4Score;
 
-  @Transient
   private Double finalScore;
 
   @Transient

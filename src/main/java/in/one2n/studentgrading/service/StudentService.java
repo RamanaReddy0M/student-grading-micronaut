@@ -15,4 +15,6 @@ public interface StudentService {
   Student updateStudent(Student student);
 
   void deleteById(Long id);
+
+  List<Student> getOverallTopper();
 }
