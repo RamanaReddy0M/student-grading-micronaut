@@ -14,3 +14,8 @@ liquibase:
   datasources:
     default:
       change-log: 'classpath:db/liquibase-changelog.xml'
+
+micronaut:
+  http:
+    client:
+      exception-on-error-status: false

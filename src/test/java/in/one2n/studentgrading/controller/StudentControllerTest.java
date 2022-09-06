@@ -42,7 +42,7 @@ class StudentControllerTest {
 
   @Test
   @Order(1)
-  void getStudentById() throws InterruptedException {
+  void getStudentById() {
     //when:
     HttpRequest<Object> request = HttpRequest.GET("/v1/api/student?id=1");
     HttpResponse<Student> response = httpClient.toBlocking().exchange(request, Student.class);
@@ -57,13 +57,18 @@ class StudentControllerTest {
     //then:
     assertNotNull(student);
     assertEquals("Kaylen", student.getFirstName());
+  }
 
+  @Test
+  void studentNotFoundTest() {
     //when: student
-    request = HttpRequest.GET("/v1/api/student?id=10001");
-    HttpResponse<Object> response2 = httpClient.toBlocking().exchange(request, Object.class);
+    HttpRequest<Student> request = HttpRequest.GET("/v1/api/student?id=10001");
+    HttpResponse<Object> response2 = httpClient.toBlocking()
+        .exchange(request, Argument.of(Object.class), Argument.of(Object.class));
 
     // then:
     assertNotNull(response2);
+    assertEquals(HttpStatus.NOT_FOUND, response2.getStatus());
   }
 
   @Test
@@ -107,8 +112,8 @@ class StudentControllerTest {
   void getOverallTopperTest() {
     //when:
     String requestBody =
-        "{" + "\"firstName\": \"Pratham\",\n"
-            + "\"lastName\": \"Ajmire\",\n" +
+        "{" + "\"firstName\": \"Pratham\",\n" +
+            "\"lastName\": \"Ajmire\",\n" +
             "\"university\": \"RCOEM\",\n" +
             "\"test1Score\": 100.0,\n" +
             "\"test2Score\": 100.0,\n" +
