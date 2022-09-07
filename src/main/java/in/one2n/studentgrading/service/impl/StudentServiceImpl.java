@@ -7,6 +7,7 @@ import in.one2n.studentgrading.entity.Student;
 import in.one2n.studentgrading.exception.UserNotFoundException;
 import in.one2n.studentgrading.repository.StudentRepository;
 import in.one2n.studentgrading.service.StudentService;
+import io.micronaut.data.model.Pageable;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +25,8 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public List<Student> getAllStudents() {
-    return studentRepository.findAll();
+  public List<Student> getAllStudents(Pageable pageable) {
+    return studentRepository.findAll(pageable).getContent();
   }
 
   @Override

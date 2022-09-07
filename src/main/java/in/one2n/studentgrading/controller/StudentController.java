@@ -4,6 +4,7 @@ import java.util.List;
 
 import in.one2n.studentgrading.entity.Student;
 import in.one2n.studentgrading.service.StudentService;
+import in.one2n.studentgrading.util.PageableUtils;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Body;
@@ -38,11 +39,6 @@ public class StudentController {
     return HttpResponse.ok(studentService.updateStudent(student));
   }
 
-  @Get("/all")
-  public HttpResponse<List<Student>> getAllStudents() {
-    return HttpResponse.ok(studentService.getAllStudents());
-  }
-
   @Delete
   public HttpStatus deleteById(@QueryValue Long id) {
     studentService.deleteById(id);
@@ -50,12 +46,19 @@ public class StudentController {
   }
 
   @Get("/topper")
-  public HttpResponse<List<Student>> getOverallTopper(){
+  public HttpResponse<List<Student>> getOverallTopper() {
     return HttpResponse.ok(studentService.getOverallTopper());
   }
 
   @Get("/university-wise-topper")
-  public HttpResponse<List<Student>> getUniversityTopper(){
+  public HttpResponse<List<Student>> getUniversityTopper() {
     return HttpResponse.ok(studentService.getUniversityWiseTopper());
+  }
+
+  @Get(value = "/all")
+  public HttpResponse<List<Student>> getNames(@QueryValue(defaultValue = "5") int size,
+      @QueryValue(defaultValue = "1") int pageNumber) {
+    PageableUtils pageable = new PageableUtils(size, pageNumber - 1);
+    return HttpResponse.ok(studentService.getAllStudents(pageable));
   }
 }
