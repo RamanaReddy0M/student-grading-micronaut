@@ -1,0 +1,21 @@
+datasources:
+  default:
+    url: jdbc:tc:postgresql://localhost/test
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    username: test
+    password: test
+
+testcontainers:
+  reuse:
+    enable: false
+
+liquibase:
+  enabled: true
+  datasources:
+    default:
+      change-log: 'classpath:db/liquibase-changelog.xml'
+
+micronaut:
+  http:
+    client:
+      exception-on-error-status: false
