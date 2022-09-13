@@ -7,10 +7,47 @@
 
     <property name="now" value="now()" dbms="postgresql"/>
     <changeSet author="liquibase-docs" id="student-metadata">
+
+        <loadData catalogName="cat"
+                  commentLineStartsWith="//"
+                  encoding="UTF-8"
+                  file="../../CSV/universities.csv"
+                  quotchar="'"
+                  relativeToChangelogFile="true"
+                  schemaName="public"
+                  separator=","
+                  tableName="universities"
+                  usePreparedStatements="true">
+            <column header="Name"
+                    name="name"
+                    type="STRING"/>
+        </loadData>
+
         <loadData catalogName="cat"
                   commentLineStartsWith="//"
                   encoding="UTF-8"
                   file="../../CSV/grades.csv"
+                  quotchar="'"
+                  relativeToChangelogFile="true"
+                  schemaName="public"
+                  separator=","
+                  tableName="grades"
+                  usePreparedStatements="true">
+            <column header="Id"
+                    name="id"
+                    type="NUMERIC"/>
+            <column header="Grade"
+                    name="grade"
+                    type="STRING"/>
+            <column header="Description"
+                    name="description"
+                    type="STRING"/>
+        </loadData>
+
+        <loadData catalogName="cat"
+                  commentLineStartsWith="//"
+                  encoding="UTF-8"
+                  file="../../CSV/students.csv"
                   quotchar="'"
                   relativeToChangelogFile="true"
                   schemaName="public"
@@ -23,9 +60,27 @@
             <column header="LastName"
                     name="last_name"
                     type="STRING"/>
-            <column header="University"
-                    name="university"
-                    type="STRING"/>
+            <column header="UniversityId"
+                    name="university_id"
+                    type="NUMERIC"/>
+            <column header="GradeId"
+                    name="grade_id"
+                    type="NUMERIC"/>
+        </loadData>
+
+        <loadData catalogName="cat"
+                  commentLineStartsWith="//"
+                  encoding="UTF-8"
+                  file="../../CSV/scores.csv"
+                  quotchar="'"
+                  relativeToChangelogFile="true"
+                  schemaName="public"
+                  separator=","
+                  tableName="scores"
+                  usePreparedStatements="true">
+            <column header="StudentId"
+                    name="student_id"
+                    type="NUMERIC"/>
             <column header="Test1"
                     name="test1_score"
                     type="NUMERIC"/>
@@ -37,6 +92,9 @@
                     type="NUMERIC"/>
             <column header="Test4"
                     name="test4_score"
+                    type="NUMERIC"/>
+            <column header="FinalScore"
+                    name="final_score"
                     type="NUMERIC"/>
         </loadData>
     </changeSet>

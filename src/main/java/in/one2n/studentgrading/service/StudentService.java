@@ -17,7 +17,7 @@ public interface StudentService {
 
   void deleteById(Long id);
 
-  List<Student> getOverallTopper();
+/*  List<Student> getOverallTopper();
 
-  List<Student> getUniversityWiseTopper();
+  List<Student> getUniversityWiseTopper();*/
 }

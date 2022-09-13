@@ -45,7 +45,7 @@ public class StudentController {
     return HttpStatus.NO_CONTENT;
   }
 
-  @Get("/topper")
+/*  @Get("/topper")
   public HttpResponse<List<Student>> getOverallTopper() {
     return HttpResponse.ok(studentService.getOverallTopper());
   }
@@ -53,7 +53,7 @@ public class StudentController {
   @Get("/university-wise-topper")
   public HttpResponse<List<Student>> getUniversityTopper() {
     return HttpResponse.ok(studentService.getUniversityWiseTopper());
-  }
+  }*/
 
   @Get(value = "/all")
   public HttpResponse<List<Student>> getNames(@QueryValue(defaultValue = "5") int size,
