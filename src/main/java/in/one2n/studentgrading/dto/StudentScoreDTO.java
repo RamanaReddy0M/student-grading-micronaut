@@ -1,5 +1,6 @@
 package in.one2n.studentgrading.dto;
 
+import io.micronaut.core.annotation.Introspected;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,7 +8,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Introspected
 public class StudentScoreDTO {
+
+  private Integer id;
 
   private String firstName;
 

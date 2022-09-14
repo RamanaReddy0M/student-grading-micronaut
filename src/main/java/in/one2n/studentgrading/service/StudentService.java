@@ -2,6 +2,7 @@ package in.one2n.studentgrading.service;
 
 import java.util.List;
 
+import in.one2n.studentgrading.dto.StudentScoreDTO;
 import in.one2n.studentgrading.entity.Student;
 import io.micronaut.data.model.Pageable;
 
@@ -17,7 +18,9 @@ public interface StudentService {
 
   void deleteById(Long id);
 
-/*  List<Student> getOverallTopper();
+  List<StudentScoreDTO> getAllStudentsWithScores(Pageable pageable);
 
-  List<Student> getUniversityWiseTopper();*/
+  List<StudentScoreDTO> getOverallTopper();
+
+  List<StudentScoreDTO> getUniversityWiseTopper();
 }

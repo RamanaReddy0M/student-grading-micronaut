@@ -3,10 +3,12 @@ package in.one2n.studentgrading.service.impl;
 import java.util.List;
 
 import in.one2n.studentgrading.constants.ErrorMessage;
+import in.one2n.studentgrading.dto.StudentScoreDTO;
 import in.one2n.studentgrading.entity.Student;
 import in.one2n.studentgrading.exception.UserNotFoundException;
 import in.one2n.studentgrading.repository.StudentRepository;
 import in.one2n.studentgrading.service.StudentService;
+import in.one2n.studentgrading.util.PageableUtils;
 import io.micronaut.data.model.Pageable;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
@@ -47,17 +49,22 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
+  public List<StudentScoreDTO> getAllStudentsWithScores(Pageable pageable) {
+    return studentRepository.findAllStudentsWithScores(pageable).getContent();
+  }
+
+  @Override
   public Student updateStudent(Student student) {
     return studentRepository.update(student);
   }
 
-/*  @Override
-  public List<Student> getOverallTopper() {
+  @Override
+  public List<StudentScoreDTO> getOverallTopper() {
     return studentRepository.findOverallTopper();
   }
 
   @Override
-  public List<Student> getUniversityWiseTopper() {
+  public List<StudentScoreDTO> getUniversityWiseTopper() {
     return studentRepository.findUniversityWiseTopper();
-  }*/
+  }
 }
