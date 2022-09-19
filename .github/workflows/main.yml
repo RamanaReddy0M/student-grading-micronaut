@@ -2,7 +2,7 @@ name: CI/CD for Student repository
 
 on:
   push:
-    branches: [ origin/chinmay/setup-github-actions ]
+    branches: [ master ]
   
 jobs:
   build_and_test:
