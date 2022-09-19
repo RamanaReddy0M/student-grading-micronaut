@@ -1,4 +1,4 @@
-name: CI/CD for Student repository
+name: CI/CD for Student repositoryy
 
 on:
   push:
