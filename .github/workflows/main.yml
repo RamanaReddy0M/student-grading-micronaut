@@ -2,7 +2,7 @@ name: CI/CD for Student repository
 
 on:
   push:
-    branches: [ setupGithubActions ]
+    branches: [ master ]
   
 jobs:
   build_and_test:
