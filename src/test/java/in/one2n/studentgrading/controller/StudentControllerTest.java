@@ -89,8 +89,8 @@ class StudentControllerTest {
 
     //then:
     assertNotNull(studentList);
-    assertEquals("Kendall", studentList.get(15).getFirstName());
-    assertEquals(30, studentList.size());
+    assertEquals("Kaylen", studentList.get(0).getFirstName());
+    assertEquals(5, studentList.size());
   }
 
   @Test
@@ -104,7 +104,6 @@ class StudentControllerTest {
     //then:
     assertNotNull(topperListFromController);
     assertEquals("Izayah", topperListFromController.get(0).getFirstName());
-    assertEquals("4", topperListFromController.get(1).getUniversityId());
   }
 
   @Test
