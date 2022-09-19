@@ -1,0 +1,26 @@
+name: CI/CD for Student repository
+
+on:
+  push:
+    branches: [chinmay/setup-github-actions]
+  pull_request:
+    branches: [chinmay/setup-github-actions]
+
+jobs:
+  build_and_test:
+
+    runs_on: ubuntu_latest #specifying the OS which you need to run the project on
+
+    steps:
+    - name: Checkout step  
+      uses: actions/checkout@v3
+      with: 
+        ref: 'chinmay/setup-github-actions'
+
+    - name: Setup JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: 11
+
+    - name: Build project
+      run: mvn -B package --file pom.xml
