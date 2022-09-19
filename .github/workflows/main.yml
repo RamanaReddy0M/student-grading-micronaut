@@ -13,7 +13,7 @@ jobs:
     - name: Checkout step  
       uses: actions/checkout@v3
       with: 
-        ref: 'chinmay/setup-github-actions'
+        ref: 'master'
 
     - name: Setup JDK
       uses: actions/setup-java@v1
