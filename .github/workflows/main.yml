@@ -1,8 +1,9 @@
-name: CI/CD for Student repository
+name: CI/CD for Student repositoryyyy
 
 on:
   push:
     branches:
+      - master
       - 'setupGithubActions'
   
 jobs:
