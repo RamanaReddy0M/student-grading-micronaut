@@ -21,9 +21,7 @@ jobs:
       with:
         java-version: 14
 
-    - name: Github branch name
-      shell : bash
-      run: echo "Github branch"
+
 
     - name: Build project
       run: mvn -B package --file pom.xml
