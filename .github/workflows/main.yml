@@ -23,7 +23,7 @@ jobs:
 
     - name: Display Github branch name
       shell: bash
-      run: echo "Hi, trying out new things"
+      run: echo "${GITHUB_REF}"
 
     - name: Build project
       run: mvn -B package --file pom.xml
