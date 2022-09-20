@@ -3,7 +3,7 @@ name: CI/CD for Student repository
 on:
   push:
     branches:
-      - 'master'
+      - 'setup-github-actions'
   
 jobs:
   build_and_test:
@@ -21,7 +21,9 @@ jobs:
       with:
         java-version: 14
 
-
+    - name: Display Github branch name
+      shell: bash
+      run: echo "Hi, trying out new things"
 
     - name: Build project
       run: mvn -B package --file pom.xml
