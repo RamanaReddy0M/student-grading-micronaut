@@ -29,4 +29,13 @@ jobs:
         run: echo "${{ env.GITHUB_BRANCH }}"
 
       - name: Build project
-        run: mvn -B package --file pom.xml
+        run: |
+        mvn -B package --file pom.xml
+        mkdir staging && cp target/*.jar staging
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: students-artifact
+          path: staging
+
