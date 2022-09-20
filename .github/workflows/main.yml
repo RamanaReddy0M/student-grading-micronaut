@@ -1,7 +1,7 @@
 name: CI/CD for Student repository
 
 env:
-  GITHUB_BRANCH = ${GITHUB_REF_NAME}
+  GITHUB_BRANCH: ${GITHUB_REF_NAME}
 
 on:
   push:
