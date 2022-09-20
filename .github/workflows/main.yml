@@ -1,9 +1,9 @@
-name: CI/CD for Student repositoryyyy
+name: CI/CD for Student repository
 
 on:
   push:
     branches:
-      - 'setup-github-actions'
+      - 'master'
   
 jobs:
   build_and_test:
@@ -20,6 +20,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 14
+
+    - name: Github branch name
+      run: $(echo ${GITHUB_REF#refs/heads/})
 
     - name: Build project
       run: mvn -B package --file pom.xml
