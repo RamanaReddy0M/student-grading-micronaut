@@ -1,32 +1,32 @@
 name: CI/CD for Student repository
 
+env:
+  GITHUB_BRANCH = ${GITHUB_REF_NAME}
+
 on:
   push:
-    shell: bash
-      run: echo "${GITHUB_REF#refs/heads/}"
-        branches:
-          - "${GITHUB_REF#refs/heads/}"
+    branches:
+      - "${{env.GITHUB_BRANCH}}"
 
-  
+
 jobs:
   build_and_test:
 
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout step  
-      uses: actions/checkout@v3
-      with: 
-        ref: 'setup-github-actions'
+      - name: Checkout step
+        uses: actions/checkout@v3
+        with:
+          ref: 'setup-github-actions'
 
-    - name: Setup JDK
-      uses: actions/setup-java@v1
-      with:
-        java-version: 14
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 14
 
-    - name: Display Github branch name
-      shell: bash
-      run: echo "${GITHUB_REF#refs/heads/}"
+      - name: Display Github branch name
+        run: echo "${{ env.GITHUB_BRANCH }}"
 
 #    - name: Build project
 #      run: mvn -B package --file pom.xml
