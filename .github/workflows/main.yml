@@ -3,7 +3,7 @@ name: CI/CD for Student repository
 on:
   push:
     branches:
-      - 'setup-github-actions'
+      - ${GITHUB_REF#refs/heads}
   
 jobs:
   build_and_test:
@@ -23,7 +23,7 @@ jobs:
 
     - name: Display Github branch name
       shell: bash
-      run: echo "${GITHUB_REF#refs/heads}"
+      run: echo "${GITHUB_REF#refs/heads/}"
 
 #    - name: Build project
 #      run: mvn -B package --file pom.xml
