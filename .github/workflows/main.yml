@@ -5,8 +5,8 @@ env:
 
 on:
   push:
-    branches:
-      - ${GITHUB_REF_NAME}
+    branches: [${GITHUB_REF_NAME}]
+
 
 jobs:
   build_and_test:
