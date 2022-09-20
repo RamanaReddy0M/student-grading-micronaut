@@ -31,7 +31,7 @@ jobs:
       - name: Build project
         run: |
         mvn -B package --file pom.xml
-        mkdir staging && cp target/*.jar staging
+        mkdir staging
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
