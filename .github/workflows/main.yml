@@ -18,7 +18,7 @@ jobs:
       - name: Checkout step
         uses: actions/checkout@v3
         with:
-          ref: "${{ env.GITHUB_BRANCH }}"
+          ref: 'setup-github-actions'
 
       - name: Setup JDK
         uses: actions/setup-java@v1
@@ -28,5 +28,5 @@ jobs:
       - name: Display Github branch name
         run: echo "${{ env.GITHUB_BRANCH }}"
 
-#    - name: Build project
-#      run: mvn -B package --file pom.xml
+      - name: Build project
+        run: mvn -B package --file pom.xml
