@@ -28,10 +28,10 @@ jobs:
       - name: Display Github branch name
         run: echo "${{ env.GITHUB_BRANCH }}"
 
-      - name: Build project
+      - name: Build project and create directory
         run: |
           mvn -B package --file pom.xml
-          mkdir staging && cp target/*.jar staging
+          mkdir staging
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
