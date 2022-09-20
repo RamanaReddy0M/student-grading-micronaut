@@ -22,7 +22,7 @@ jobs:
         java-version: 14
 
     - name: Github branch name
-      run: $(echo ${GITHUB_REF#refs/heads/})
+      run: echo "Github branch"
 
     - name: Build project
       run: mvn -B package --file pom.xml
