@@ -5,7 +5,8 @@ env:
 
 on:
   push:
-    branches: [${GITHUB_REF_NAME}, master]
+    branches:
+      - ${{ env.GITHUB_BRANCH }}
 
 
 jobs:
