@@ -5,7 +5,8 @@ env:
 
 on:
   push:
-    branches: [ ${{ env.GITHUB_BRANCH }} ]
+    branches:
+      - '${{ github.ref_name }}'
 
 jobs:
   build_and_test:
