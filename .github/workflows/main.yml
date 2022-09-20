@@ -31,11 +31,11 @@ jobs:
       - name: Build project and create directory
         run: |
           mvn -B package --file pom.xml
-          mkdir -p path/to/artifact
+          mkdir staging && cp target/*.jar staging
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: students-artifact
-          path: path/to/artifact
+          path: staging
 
