@@ -3,8 +3,7 @@ name: CI/CD for Student repositoryyyy
 on:
   push:
     branches:
-      - master
-      - 'setupGithubActions'
+      - 'setup-github-actions'
   
 jobs:
   build_and_test:
@@ -15,7 +14,7 @@ jobs:
     - name: Checkout step  
       uses: actions/checkout@v3
       with: 
-        ref: 'setupGithubActions'
+        ref: 'setup-github-actions'
 
     - name: Setup JDK
       uses: actions/setup-java@v1
