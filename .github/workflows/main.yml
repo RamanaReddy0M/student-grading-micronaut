@@ -5,9 +5,7 @@ env:
 
 on:
   push:
-    branches:
-      - 'setup-github-actions'
-
+    branches: ${{ env.GITHUB_BRANCH }}
 
 jobs:
   build_and_test:
