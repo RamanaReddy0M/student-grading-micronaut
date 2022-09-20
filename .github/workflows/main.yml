@@ -3,8 +3,10 @@ name: CI/CD for Student repository
 on:
   push:
     shell: bash
-      branches:
-        - "${GITHUB_REF#refs/heads/}"
+      run: echo "${GITHUB_REF#refs/heads/}"
+        branches:
+          - "${GITHUB_REF#refs/heads/}"
+
   
 jobs:
   build_and_test:
