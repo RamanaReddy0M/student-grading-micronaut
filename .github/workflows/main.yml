@@ -2,8 +2,9 @@ name: CI/CD for Student repository
 
 on:
   push:
-    branches:
-      - ${GITHUB_REF#refs/heads}
+    shell: bash
+      branches:
+        - "${GITHUB_REF#refs/heads/}"
   
 jobs:
   build_and_test:
