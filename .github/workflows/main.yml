@@ -48,7 +48,7 @@ jobs:
           path: staging
 
       - name: Dockerize the project
-        shell: bash]
+        shell: bash
         run: echo "Will Dockerize tomorrow."
 
 
