@@ -25,6 +25,14 @@ jobs:
         with:
           java-version: 14
 
+#      - name: Cache dependencies
+#        uses: actions/cache@v1
+#        with:
+#          path: ~/.m2
+#          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+#          restore-keys: ${{ runner.os }}-m2
+
+
       - name: Display Github branch name
         run: echo "${{ env.GITHUB_BRANCH }}"
 
@@ -38,4 +46,9 @@ jobs:
         with:
           name: students-artifact
           path: staging
+
+      - name: Dockerize the project
+        shell: bash]
+        run: echo "Will Dockerize tomorrow."
+
 
