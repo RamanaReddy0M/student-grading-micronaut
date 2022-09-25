@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   db:
+    container_name: student-grading-db
     image: postgres:14.1-alpine
     restart: always
     environment:
@@ -10,6 +11,12 @@ services:
       - '5432:5432'
     volumes:
       - ~/docker-workspace/student-grading/db:/var/lib/postgresql/data
+
 volumes:
   db:
     driver: local
+
+networks:
+  default:
+    name: student-grading-network
+    driver: bridge
