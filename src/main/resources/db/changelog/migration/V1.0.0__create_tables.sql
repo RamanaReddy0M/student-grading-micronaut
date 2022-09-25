@@ -22,7 +22,7 @@ CREATE TABLE students
 
 CREATE TABLE scores
 (
-    student_id      INT NOT NULL REFERENCES students(id),
+    student_id      INT NOT NULL REFERENCES students(id) ON DELETE CASCADE,
     test1_score     NUMERIC NOT NULL,
     test2_score     NUMERIC NOT NULL,
     test3_score     NUMERIC NOT NULL,
