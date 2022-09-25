@@ -10,7 +10,7 @@
         <loadData catalogName="cat"
                   commentLineStartsWith="//"
                   encoding="UTF-8"
-                  file="../../CSV/grades.csv"
+                  file="CSV/grades.csv"
                   quotchar="'"
                   relativeToChangelogFile="true"
                   schemaName="public"
