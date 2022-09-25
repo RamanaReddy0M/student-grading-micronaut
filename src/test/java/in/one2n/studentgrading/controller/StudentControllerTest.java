@@ -104,7 +104,6 @@ class StudentControllerTest {
     //then:
     assertNotNull(topperListFromController);
     assertEquals("Izayah", topperListFromController.get(0).getFirstName());
-    assertEquals("University of California", topperListFromController.get(1).getUniversity());
   }
 
   @Test
@@ -155,7 +154,6 @@ class StudentControllerTest {
     //then:
     assertNotNull(response);
     assertEquals("Roger", response.body().getFirstName());
-    assertEquals("RCOEM", response.body().getUniversity());
   }
 
   @Test
@@ -192,5 +190,25 @@ class StudentControllerTest {
         .exchange(HttpRequest.DELETE("/v1/api/student/?id=1"), Student.class);
 
     assertEquals(HttpStatus.NO_CONTENT, response.getStatus());
+  }
+
+  @Test
+  void getallStudents_pagination(){
+    HttpRequest<Object> request = HttpRequest.GET("/v1/api/student/all?size=3&pageNumber=8");
+    HttpResponse<List<Student>> response =
+        httpClient.toBlocking().exchange(request, Argument.listOf(Student.class));
+
+    //then:
+    assertEquals(HttpStatus.OK, response.getStatus());
+    assertNotNull(response);
+
+    //when:
+    List<Student> studentList = response.body();
+
+    //then:
+    assertNotNull(studentList);
+    assertEquals("Azaria", studentList.get(0).getFirstName());
+    assertEquals(3, studentList.size());
+
   }
 }
