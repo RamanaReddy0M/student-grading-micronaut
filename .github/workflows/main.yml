@@ -1,25 +1,52 @@
-name: CI/CD for Student repositoryyyy
+name: CI/CD for Student repository
+
+env:
+  GITHUB_BRANCH: ${GITHUB_REF_NAME}
 
 on:
   push:
     branches:
-      - 'change-schema'
-      
+      - '**'
+
 jobs:
   build_and_test:
 
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout step  
-      uses: actions/checkout@v3
-      with: 
-        ref: 'change-schema'
+      - name: Checkout step
+        uses: actions/checkout@v3
 
-    - name: Setup JDK
-      uses: actions/setup-java@v1
-      with:
-        java-version: 14
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 14
 
-    - name: Build project
-      run: mvn -B package --file pom.xml
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Display Github branch name
+        run: echo "${{ env.GITHUB_BRANCH }}"
+
+      - name: Build project and create directory
+        run: |
+          mvn -B package --file pom.xml
+          mkdir staging && cp target/*.jar staging
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: students-artifact
+          path: staging
+
+      - name: Dockerize the project
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: chinmaysomani7/chinmayrepo
+          registry: docker.io
+          username: chinmaysomani7
+          password: Thisismydockerhub

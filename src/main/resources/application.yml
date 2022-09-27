@@ -28,7 +28,7 @@ jpa:
 jpa.default.properties.hibernate.hbm2ddl.auto: none
 
 liquibase:
-  enabled: true
+  enabled: false
   datasources:
     default:
       change-log: 'classpath:db/liquibase-changelog.xml'
