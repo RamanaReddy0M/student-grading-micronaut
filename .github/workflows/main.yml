@@ -16,8 +16,8 @@ jobs:
     steps:
       - name: Checkout step
         uses: actions/checkout@v3
-        with:
-          ref: ${GITHUB_REF_NAME}
+#        with:
+#          ref: ${GITHUB_REF_NAME}
 
       - name: Setup JDK
         uses: actions/setup-java@v1
