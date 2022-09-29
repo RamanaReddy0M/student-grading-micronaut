@@ -1,6 +1,7 @@
 package in.one2n.studentgrading.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import in.one2n.studentgrading.entity.Student;
 import io.micronaut.core.type.Argument;
@@ -104,72 +105,71 @@ class StudentControllerTest {
     //then:
     assertNotNull(topperListFromController);
     assertEquals("Izayah", topperListFromController.get(0).getFirstName());
-    assertEquals("University of California", topperListFromController.get(1).getUniversity());
   }
 
   @Test
   @Order(4)
   void getOverallTopperTest() {
     //when:
-    String requestBody =
-        "{" + "\"firstName\": \"Pratham\",\n" +
-            "\"lastName\": \"Ajmire\",\n" +
-            "\"university\": \"RCOEM\",\n" +
-            "\"test1Score\": 100.0,\n" +
-            "\"test2Score\": 100.0,\n" +
-            "\"test3Score\": 99.0,\n" +
-            "\"test4Score\": 99.0 }";
-    HttpRequest<Object> request = HttpRequest.POST("/v1/api/student/create", requestBody);
-    HttpResponse<Student> response = httpClient.toBlocking().exchange(request, Student.class);
-    Student student = response.body();
-
-    //then:
-    assertNotNull(student);
-    assertEquals("Ajmire", student.getLastName());
-
-    //when:
     List<Student> topperList = httpClient.toBlocking()
         .retrieve(HttpRequest.GET("/v1/api/student/topper"), Argument.listOf(Student.class));
 
     //then:
     assertNotNull(topperList);
-    assertEquals("Pratham", topperList.get(0).getFirstName());
+    assertEquals("Bernard", topperList.get(0).getFirstName());
   }
 
   @Test
   @Order(5)
+  void getAllStudentsPagination(){
+    HttpRequest<Object> request = HttpRequest.GET("/v1/api/student/all?size=3&pageNumber=8");
+    HttpResponse<List<Student>> response =
+        httpClient.toBlocking().exchange(request, Argument.listOf(Student.class));
+
+    //then:
+    assertEquals(HttpStatus.OK, response.getStatus());
+    assertNotNull(response);
+
+    //when:
+    List<Student> studentList = response.body();
+
+    //then:
+    assertNotNull(studentList);
+    assertEquals("Azaria", studentList.get(0).getFirstName());
+    assertEquals(3, studentList.size());
+  }
+
+  @Test
+  @Order(6)
   void updateStudent() {
     //when:
     String requestBody =
-        "{" + "\"firstName\": \"Roger\",\n" +
-            "\"lastName\": \"Lothruk\",\n" +
-            "\"university\": \"RCOEM\",\n" +
-            "\"test1Score\": 99.0,\n" +
-            "\"test2Score\": 99.0,\n" +
-            "\"test3Score\": 99.0,\n" +
-            "\"test4Score\": 90.0 }";
+        "{" +
+            "\"id\": 8,\n"+
+            "\"firstName\": \"David\",\n" +
+            "\"lastName\": \"Holmes\",\n" +
+            "\"universityId\": 2,\n" +
+            "\"gradeId\": 3" +
+            "}";
 
     HttpRequest<Object> request = HttpRequest.PUT("/v1/api/student/update", requestBody);
     HttpResponse<Student> response = httpClient.toBlocking().exchange(request, Student.class);
 
     //then:
     assertNotNull(response);
-    assertEquals("Roger", response.body().getFirstName());
-    assertEquals("RCOEM", response.body().getUniversity());
+    assertEquals("David", Objects.requireNonNull(response.body()).getFirstName());
   }
 
   @Test
-  @Order(6)
+  @Order(7)
   void addStudent() {
     //when:
     String requestBody =
         "{" + "\"firstName\": \"Ragnar\",\n" +
             "\"lastName\": \"Lothruk\",\n" +
-            "\"university\": \"Duke University\",\n" +
-            "\"test1Score\": 99.0,\n" +
-            "\"test2Score\": 99.0,\n" +
-            "\"test3Score\": 99.0,\n" +
-            "\"test4Score\": 90.0 }";
+            "\"universityId\": 3,\n" +
+            "\"gradeId\": 4\n" +
+            "}";
     HttpRequest<Object> request = HttpRequest.POST("/v1/api/student/create", requestBody);
     HttpResponse<Student> response = httpClient.toBlocking().exchange(request, Student.class);
 
@@ -186,7 +186,7 @@ class StudentControllerTest {
   }
 
   @Test
-  @Order(7)
+  @Order(8)
   void deleteById() {
     HttpResponse<Student> response = httpClient.toBlocking()
         .exchange(HttpRequest.DELETE("/v1/api/student/?id=1"), Student.class);

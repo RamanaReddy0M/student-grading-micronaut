@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import io.micronaut.core.annotation.Introspected;
 import lombok.Getter;
@@ -30,37 +29,7 @@ public class Student {
 
   private String lastName;
 
-  private String university;
+  private Integer universityId;
 
-  private Double test1Score;
-
-  private Double test2Score;
-
-  private Double test3Score;
-
-  private Double test4Score;
-
-  @Transient
-  private Double finalScore;
-
-  @Transient
-  private Grade grade;
-
-  public Double getFinalScore() {
-    return (test1Score + test2Score + test3Score + test4Score);
-  }
-
-  public Grade getGrade() {
-    double finalScore = getFinalScore() / 4;
-    if (finalScore < 35) {
-      grade = Grade.F;
-    } else if (finalScore >= 35 && finalScore < 50) {
-      grade = Grade.C;
-    } else if (finalScore >= 50 && finalScore < 70) {
-      grade = Grade.B;
-    } else {
-      grade = Grade.A;
-    }
-    return grade;
-  }
+  private Integer gradeId;
 }

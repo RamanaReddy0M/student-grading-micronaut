@@ -2,6 +2,7 @@ package in.one2n.studentgrading.controller;
 
 import java.util.List;
 
+import in.one2n.studentgrading.dto.StudentScoreDTO;
 import in.one2n.studentgrading.entity.Student;
 import in.one2n.studentgrading.service.StudentService;
 import in.one2n.studentgrading.util.PageableUtils;
@@ -46,19 +47,26 @@ public class StudentController {
   }
 
   @Get("/topper")
-  public HttpResponse<List<Student>> getOverallTopper() {
+  public HttpResponse<List<StudentScoreDTO>> getOverallTopper() {
     return HttpResponse.ok(studentService.getOverallTopper());
   }
 
   @Get("/university-wise-topper")
-  public HttpResponse<List<Student>> getUniversityTopper() {
+  public HttpResponse<List<StudentScoreDTO>> getUniversityTopper() {
     return HttpResponse.ok(studentService.getUniversityWiseTopper());
   }
 
   @Get(value = "/all")
-  public HttpResponse<List<Student>> getNames(@QueryValue(defaultValue = "5") int size,
+  public HttpResponse<List<Student>> getAllStudents(@QueryValue(defaultValue = "5") int size,
       @QueryValue(defaultValue = "1") int pageNumber) {
     PageableUtils pageable = new PageableUtils(size, pageNumber - 1);
     return HttpResponse.ok(studentService.getAllStudents(pageable));
+  }
+
+  @Get(value = "/score/all")
+  public HttpResponse<List<StudentScoreDTO>> getAllStudentsWithScore(
+      @QueryValue(defaultValue = "5") int size, @QueryValue(defaultValue = "1") int pageNumber) {
+    return HttpResponse.ok(
+        studentService.getAllStudentsWithScores(new PageableUtils(size, pageNumber - 1)));
   }
 }
