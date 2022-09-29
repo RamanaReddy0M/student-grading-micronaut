@@ -48,7 +48,7 @@ jobs:
         with:
           image: chinmaysomani7/chinmayrepo
           registry: docker.io
-          username: chinmaysomani7
-          password: Thisismydockerhub
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
 
