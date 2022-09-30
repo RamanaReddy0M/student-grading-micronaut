@@ -1,12 +1,12 @@
 name: CI/CD for Student repository
 
-env:
-  GITHUB_BRANCH: ${GITHUB_REF_NAME}
-
 on:
   push:
     branches:
-      - '**'
+      - 'setup-github-actions'
+  pull_request:
+    branches:
+      - 'setup-github-actions'
 
 jobs:
   build_and_test:
@@ -22,33 +22,8 @@ jobs:
         with:
           java-version: 14
 
-      - name: Cache dependencies
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+      - name: Build project
+        run: mvn -B package --file pom.xml
 
-      - name: Display Github branch name
-        run: echo "${{ env.GITHUB_BRANCH }}"
-
-      - name: Build project and create directory
-        run: |
-          mvn -B package --file pom.xml
-          mkdir staging && cp target/*.jar staging
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: students-artifact
-          path: staging
-
-      - name: Dockerize the project
-        uses: mr-smithers-excellent/docker-build-push@v5
-        with:
-          image: chinmaysomani7/chinmayrepo
-          registry: docker.io
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
 
 
