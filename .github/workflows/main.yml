@@ -3,10 +3,10 @@ name: CI/CD for Student repository
 on:
   push:
     branches:
-      - 'setup-github-actions'
+      - '**'
   pull_request:
     branches:
-      - 'setup-github-actions'
+      - '**'
 
 jobs:
   build_and_test:
