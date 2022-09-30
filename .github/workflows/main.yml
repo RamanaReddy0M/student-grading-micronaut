@@ -17,6 +17,13 @@ jobs:
       - name: Checkout step
         uses: actions/checkout@v3
 
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
       - name: Setup JDK
         uses: actions/setup-java@v1
         with:
