@@ -39,3 +39,11 @@ jobs:
         with:
           name: students-artifact
           path: staging
+
+      - name: Dockerize the project
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: chinmaysomani7/chinmayrepo
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
