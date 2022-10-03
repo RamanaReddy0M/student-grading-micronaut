@@ -1,22 +1,32 @@
 version: '3.8'
 services:
+  web :
+    build:
+      context: .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - student-grading-network
+
   db:
     container_name: student-grading-db
     image: postgres:14.1-alpine
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=${DB_NAME-student_db}
+      - POSTGRES_USER=${POSTGRES_USER-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD-postgres}
     ports:
-      - '5432:5432'
+      - ${DB_PORT_ON_DOCKER_HOST-5432}:${DB_PORT_ON_CONTAINER-5432}
     volumes:
-      - ~/docker-workspace/student-grading/db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
+    networks:
+      - student-grading-network
+    expose:
+      - 5432
 
 volumes:
   db:
-    driver: local
 
 networks:
-  default:
-    name: student-grading-network
-    driver: bridge
+  student-grading-network:
