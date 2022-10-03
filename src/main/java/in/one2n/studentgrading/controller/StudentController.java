@@ -6,6 +6,8 @@ import in.one2n.studentgrading.dto.StudentScoreDTO;
 import in.one2n.studentgrading.entity.Student;
 import in.one2n.studentgrading.service.StudentService;
 import in.one2n.studentgrading.util.PageableUtils;
+import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.instrument.MeterRegistry;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Body;
@@ -19,10 +21,13 @@ import io.micronaut.http.annotation.QueryValue;
 @Controller("/v1/api/student")
 public class StudentController {
 
-  public final StudentService studentService;
+  private final StudentService studentService;
 
-  public StudentController(StudentService studentService) {
+  private final MeterRegistry meterRegistry;
+
+  public StudentController(StudentService studentService, MeterRegistry meterRegistry) {
     this.studentService = studentService;
+    this.meterRegistry = meterRegistry;
   }
 
   @Get
@@ -32,7 +37,10 @@ public class StudentController {
 
   @Post("/create")
   public HttpResponse<Student> addStudent(@Body Student student) {
-    return HttpResponse.ok(studentService.addStudent(student));
+    Student createdStudent = studentService.addStudent(student);
+    meterRegistry.counter("total.students.created", "Controller", "StudentController", "action",
+        "/create", "total-student-created", createdStudent.getId().toString());
+    return HttpResponse.ok(createdStudent);
   }
 
   @Put("/update")
@@ -47,7 +55,9 @@ public class StudentController {
   }
 
   @Get("/topper")
-  public HttpResponse<List<StudentScoreDTO>> getOverallTopper() {
+  @Timed("execution.time.overall.topper")
+  public HttpResponse<List<StudentScoreDTO>> getOverallTopper() throws InterruptedException {
+    Thread.sleep(2000);
     return HttpResponse.ok(studentService.getOverallTopper());
   }
 

@@ -126,6 +126,29 @@
             <artifactId>micronaut-data-runtime</artifactId>
             <version>3.7.3</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.micronaut.micrometer</groupId>
+            <artifactId>micronaut-micrometer-core</artifactId>
+            <version>4.6.1</version>
+        </dependency>
+        <!-- micrometer-registry-statsd also pulls in micrometer-core so included above to verbose example -->
+        <dependency>
+            <groupId>io.micronaut.micrometer</groupId>
+            <artifactId>micronaut-micrometer-registry-statsd</artifactId>
+            <version>4.6.1</version>
+        </dependency>
+        <!-- Also required to enable endpoint -->
+        <dependency>
+            <groupId>io.micronaut</groupId>
+            <artifactId>micronaut-management</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micronaut.cache</groupId>
+            <artifactId>micronaut-cache-management</artifactId>
+            <version>3.5.0</version>
+        </dependency>
     </dependencies>
 
     <build>

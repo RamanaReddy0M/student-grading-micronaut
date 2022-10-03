@@ -3,6 +3,8 @@ micronaut:
     port: 8080
   application:
     name: studentGradingMicronaut
+  metrics:
+    enabled: true
 
 db:
   host: ${DB_HOST:localhost}
@@ -37,3 +39,8 @@ netty:
   default:
     allocator:
       max-order: 3
+
+endpoints:
+  health:
+    enabled: true
+    sensitive: false
