@@ -53,7 +53,7 @@ jobs:
         with:
           name: students-artifact
 
-      - name: Deploy to EB
+      - name: Deploy to Elastic Bucket
         uses: einaregilsson/beanstalk-deploy@v13
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
