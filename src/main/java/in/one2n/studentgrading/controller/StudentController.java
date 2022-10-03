@@ -39,7 +39,7 @@ public class StudentController {
   public HttpResponse<Student> addStudent(@Body Student student) {
     Student createdStudent = studentService.addStudent(student);
     meterRegistry.counter("total.students.created", "Controller", "StudentController", "action",
-        "/create", "total-student-created", createdStudent.getId().toString());
+        "/create", "total-student-created", createdStudent.getId().toString()).increment();
     return HttpResponse.ok(createdStudent);
   }
 
