@@ -15,7 +15,7 @@ micronaut:
         enabled: true
 
 db:
-  host: ${DB_HOST:localhost}
+  host: ${DB_HOST:database-1.c5bokmomhcfx.us-east-1.rds.amazonaws.com}
   port: ${DB_PORT:5432}
   name: ${DB_NAME:student_db}
   user: ${DB_USER:postgres}
@@ -24,7 +24,6 @@ db:
 datasources:
   default:
     url: jdbc:postgresql://${db.host}:${db.port}/${db.name}
-    driverClassName: org.postgresql.Driver
     username: ${db.user}
     password: ${db.password}
     schema-generate: CREATE_DROP
