@@ -38,8 +38,9 @@ public class StudentController {
   @Post("/create")
   public HttpResponse<Student> addStudent(@Body Student student) {
     Student createdStudent = studentService.addStudent(student);
-    meterRegistry.counter("total.students.created", "Controller", "StudentController", "action",
-        "/create", "total-student-created", createdStudent.getId().toString()).increment();
+    meterRegistry.counter("created.student.count", "Controller", "StudentController",
+        "action", "/create",
+        "total-student-created", createdStudent.getId().toString()).increment();
     return HttpResponse.ok(createdStudent);
   }
 
@@ -51,6 +52,9 @@ public class StudentController {
   @Delete
   public HttpStatus deleteById(@QueryValue Long id) {
     studentService.deleteById(id);
+    meterRegistry.counter("deleted.student.count", "Controller", "StudentController",
+            "action", "DELETE:/v1/api/student/1")
+        .increment();
     return HttpStatus.NO_CONTENT;
   }
 
@@ -63,13 +67,16 @@ public class StudentController {
 
   @Get("/university-wise-topper")
   public HttpResponse<List<StudentScoreDTO>> getUniversityTopper() {
-    return HttpResponse.ok(studentService.getUniversityWiseTopper());
+    List<StudentScoreDTO> studentList = studentService.getUniversityWiseTopper();
+    meterRegistry.summary("summary.university-wise.toppers").record(studentList.size());
+    return HttpResponse.ok(studentList);
   }
 
   @Get(value = "/all")
   public HttpResponse<List<Student>> getAllStudents(@QueryValue(defaultValue = "5") int size,
       @QueryValue(defaultValue = "1") int pageNumber) {
     PageableUtils pageable = new PageableUtils(size, pageNumber - 1);
+    meterRegistry.gauge("page.student.size", size);
     return HttpResponse.ok(studentService.getAllStudents(pageable));
   }
 

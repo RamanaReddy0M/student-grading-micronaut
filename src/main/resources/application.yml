@@ -5,6 +5,14 @@ micronaut:
     name: studentGradingMicronaut
   metrics:
     enabled: true
+  export:
+    prometheus:
+      enabled: true
+      step: PT1M
+      descriptions: true
+    binders:
+      executor:
+        enabled: true
 
 db:
   host: ${DB_HOST:localhost}
@@ -41,6 +49,9 @@ netty:
       max-order: 3
 
 endpoints:
+  prometheus:
+    enabled: true
+    sensitive: false
   health:
     enabled: true
     sensitive: false
