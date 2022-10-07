@@ -1,25 +1,66 @@
-name: CI/CD for Student repositoryyyy
+name: CI/CD for Student repository
 
 on:
   push:
     branches:
-      - 'change-schema'
-      
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
 jobs:
   build_and_test:
 
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout step  
-      uses: actions/checkout@v3
-      with: 
-        ref: 'change-schema'
+      - name: Checkout step
+        uses: actions/checkout@v3
 
-    - name: Setup JDK
-      uses: actions/setup-java@v1
-      with:
-        java-version: 14
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
 
-    - name: Build project
-      run: mvn -B package --file pom.xml
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 14
+
+      - name: Build project and create directory
+        run: |
+          mvn -B package --file pom.xml
+          mkdir staging && cp target/*.jar staging
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: students-artifact
+          path: staging
+
+      - name: Dockerize the project
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: chinmaysomani7/chinmayrepo
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Download JAR
+        uses: actions/download-artifact@v2
+        with:
+          name: students-artifact
+
+      - name: Deploy to Elastic Beandstalk
+        uses: einaregilsson/beanstalk-deploy@v13
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          use_existing_version_if_available: false
+          application_name: micronaut-deployment
+          environment_name: Micronautdeployment-env
+          version_label: ${{github.SHA}}
+          region: us-east-1
+          deployment_package: student-grading-micronaut.jar
