@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+#  student-grading-micronaut:
+#    image: student-grading-micronaut-image-test
+#    container_name: student-grading-micronaut-app-test
+#    networks:
+#      - student-grading-network-test
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-test
+#    env_file: .env
+#    ports:
+#      - 8000:8000
+#      - 8080:8080
+#    volumes:
+#      - ./:/app
+#    command: ./mvnw clean test
+
+  tests:
+    image: maven:3
+    stop_signal: SIGKILL
+    stdin_open: true
+    tty: true
+    working_dir: /app
+    environment:
+      - TESTCONTAINERS_RYUK_DISABLED=true
+    volumes:
+      - ./:/app
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.m2:/root/.m2
+      - ~/.docker/config.json:/root/.docker/config.json
+      - ~/.testcontainers.properties:/root/.testcontainers.properties
+    command: mvn clean test
+
+
+volumes:
+  test_db:
+
+networks:
+  default:
