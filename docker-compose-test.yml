@@ -1,20 +1,5 @@
 version: '3.8'
 services:
-#  student-grading-micronaut:
-#    image: student-grading-micronaut-image-test
-#    container_name: student-grading-micronaut-app-test
-#    networks:
-#      - student-grading-network-test
-#    build:
-#      context: .
-#      dockerfile: Dockerfile-test
-#    env_file: .env
-#    ports:
-#      - 8000:8000
-#      - 8080:8080
-#    volumes:
-#      - ./:/app
-#    command: ./mvnw clean test
 
   tests:
     image: maven:3
@@ -23,15 +8,12 @@ services:
     tty: true
     working_dir: /app
     environment:
-      - TESTCONTAINERS_RYUK_DISABLED=true
+      - TESTCONTAINERS_HOST_OVERRIDE=host.docker.internal
     volumes:
       - ./:/app
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/.m2:/root/.m2
-      - ~/.docker/config.json:/root/.docker/config.json
-      - ~/.testcontainers.properties:/root/.testcontainers.properties
-    command: mvn clean test
-
+    command: mvn clean install
 
 volumes:
   test_db:
