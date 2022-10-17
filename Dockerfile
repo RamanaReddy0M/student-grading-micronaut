@@ -1,4 +1,11 @@
-FROM openjdk:11-jre-slim
-WORKDIR /student-grading-work-space
-COPY /target/student-grading-micronaut.jar student-grading-micronaut.jar
-ENTRYPOINT ["java", "-jar", "student-grading-micronaut.jar"]
+FROM openjdk:11
+
+WORKDIR /app
+
+COPY .mvn .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw -T 4 dependency:go-offline
+
+COPY src ./src
+
+CMD ["./mvnw", "mn:run", "-Dmn.watch=true"]
