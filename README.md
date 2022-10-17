@@ -104,6 +104,11 @@ to take care of few things like -
 - Finally, To happen hot reload inside docker, Our current directory(where the source code exists)
   should be mounted to working directory inside container.
 
+```yaml
+volumes:
+  - ./:/app
+```
+
 ### How to pass values to variables in `docker-compose.yml` file?
 
 In this `docker-compose.yml` file, You would see that the variables used
@@ -130,8 +135,9 @@ Follow the commands to run docker-compose file
 
 > $ docker-compose up -d
 
-If you're running `doker-compose up -d` command for time, It would take 7-10 minutes to pull images(
-openjdk:11) and download dependencies. If everything runs successfully, By doing `docker ps` you
+If you're running `doker-compose up -d` command for first time, It would take 7-10 minutes to pull
+images(
+openjdk:11) and downloading dependencies. If everything runs successfully, By doing `docker ps` you
 would see the following outcome.
 
 ```
@@ -212,8 +218,9 @@ Once the dependencies mounted or downloaded, You would see the following logs as
 
 ## Spring-Boot + Postgres + Docker
 
-  Both the Spring-Boot and Micronaut are JVM based frameworks. There's no much difference among
-Dockerfile and Docker-Composes() file except the command to run the application.
+Both the Spring-Boot and Micronaut are JVM based frameworks. There's no much difference among
+Dockerfile and Docker-Composes files(comparing with above docker templates) except the command to
+run the application.
 
 As to achieve hot reload inside docker, We need add `devtools` dependency inside `pom.xml`.
 
