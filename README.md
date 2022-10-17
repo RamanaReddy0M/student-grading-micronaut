@@ -134,7 +134,7 @@ If you're running `doker-compose up -d` command for time, It would take 7-10 min
 openjdk:11) and download dependencies. If everything runs successfully, By doing `docker ps` you
 would see the following outcome.
 
-```toml
+```
 ➜  student-grading-micronaut ✗ docker ps
 CONTAINER ID   IMAGE                             COMMAND                  CREATED          STATUS          PORTS                                            NAMES
 8247f3b42566   student-grading-micronaut-image   "./mvnw mn:run -Dmn.…"   29 seconds ago   Up 25 seconds   0.0.0.0:8080->8080/tcp           student-grading-micronaut-app
@@ -240,7 +240,7 @@ Theb, Add `Dockerfile` and `docker-compose.yml` to the working directory.
 
 Project structure after adding `Dockerfile` and `docker-compose.yml`
 
-```toml
+```
 <working-dir>
 ├── ...
 ├── src
@@ -338,7 +338,7 @@ If you're running `doker-compose up -d` command for time, It would take 7-10 min
 openjdk:11) and download dependencies. If everything runs successfully, By doing `docker ps` you
 would see the following outcome.
 
-```toml
+```
 ➜  student-grading-micronaut ✗ docker ps
 CONTAINER ID   IMAGE                             COMMAND                  CREATED          STATUS          PORTS                                            NAMES
 8247f3b42566   student-grading-micronaut-image   "./mvnw spring-boot:…"   29 seconds ago   Up 25 seconds   0.0.0.0:8080->8080/tcp   student-grading-micronaut-app
@@ -346,7 +346,7 @@ CONTAINER ID   IMAGE                             COMMAND                  CREATE
 ```
 
 If application is failed to start, You would still figure why it fails by following below command.
-> $ docker logs --follow <container-name>
+> $ docker logs --follow `<container-name>`
 
 Make actions a/c to logs.
 
